@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<polymer-element name="icon-component">
+  <template>
+    <style>
+    .folder {
+      display: inline-block;
+      padding: 5px;
+      vertical-align: top;
+      text-align: center;
+      font-size: 0.7em;
+      font-weight: normal;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    
+    .folder-img {
+      display: block; }
+      
+    .focused {
+      background-color: blue;
+      color: white;}
+    </style>
+    <div id="folder-item" class="folder" tabindex=0 style="width: {{icon.width}};" 
+      on-focus="iconFocus" on-blur="iconBlur">
+      <img alt="{{icon.name}}" src={{icon.url}} class="folder-img" style="height: {{icon.height}};" />
+      <span id="folder-name" class={{icon.style}}>$name</span>
+    </div>
+  </template>
+  <script type="application/dart" src="window.dart"></script>
+</polymer-element>
