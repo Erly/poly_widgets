@@ -1,8 +1,9 @@
 library models;
 
 import 'package:polymer/polymer.dart';
+import 'package:uuid/uuid.dart';
 
-class WindowElement extends Object with ObservableMixin {
+abstract class WindowElement extends Object with ObservableMixin {
 
   @observable String title = 'Window';
   @observable int left;
@@ -12,7 +13,7 @@ class WindowElement extends Object with ObservableMixin {
   @observable int width = 150;
   @observable int height = 100;
 
-  String _uuid;
+  final String _uuid = new Uuid().v4();
   int minTop = 0;
   int minLeft = 0;
   int minBottom = 0;
@@ -20,9 +21,21 @@ class WindowElement extends Object with ObservableMixin {
   int minWidth = 150;
   int minHeight = 100;
 
+  get id => _uuid;
+
   WindowElement();
+
+  // return true to close the window, false to cancel.
+  bool close();
 }
 
+class WindowElementImpl extends WindowElement
+{
+  bool close() {
+    print('The window $id has been closed.');
+    return true;
+  }
+}
 class IconElement extends Object with ObservableMixin {
   @observable String name = "file";
   @observable String imageUrl = "./images/folder.png";

@@ -5,8 +5,8 @@ import 'model.dart';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('window-component')
-class WindowComponent extends PolymerElement with ObservableMixin {
-  final WindowElement windowElement = new WindowElement();
+class WindowComponent extends PolymerElement {
+  final WindowElement windowElement = new WindowElementImpl();
   Point _dragStartPoint;
   Point _windowDragStartPoint;
   int _windowStartWidth;
@@ -40,13 +40,6 @@ class WindowComponent extends PolymerElement with ObservableMixin {
       style.top = "${y}px";
   }
 
-  windowDrop(MouseEvent e, var detail, Node target) {
-    e.stopPropagation();
-    e.dataTransfer.effectAllowed = "none";
-    e.dataTransfer.dropEffect = "none";
-    return false;
-  }
-
   resizeDragStart(MouseEvent e, var detail, Node target) {
     _dragStartPoint = new Point(e.page.x, e.page.y);
     _windowDragStartPoint = new Point(offset.right, offset.bottom);
@@ -77,11 +70,7 @@ class WindowComponent extends PolymerElement with ObservableMixin {
       windowElement.height = height;
   }
 
-  resizeDrop(MouseEvent e, var detail, Node target) {
-    e.stopPropagation();
-    e.dataTransfer.effectAllowed = "none";
-    e.dataTransfer.dropEffect = "none";
-    return false;
+  close() {
+    if (windowElement.close()) this.remove();
   }
-
 }

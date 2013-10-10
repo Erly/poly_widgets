@@ -72,21 +72,22 @@
         cursor: se-resize;
         background-image: url("./images/arrow-resize.png"); }
     </style>
-    <div class="window" tabindex=-1 style='width: {{windowElement.width}}px; height: {{windowElement.height}}px'>
+    <div id="id-{{windowElement.id}}" class="window" tabindex=-1 
+    style='width: {{windowElement.width}}px; height: {{windowElement.height}}px'>
       <div id="window-header" class="window-header" draggable="true" 
-      on-drag-start="windowDragStart" on-drag="windowDrag" on-drop="windowDrop">
+      on-dragstart="windowDragStart" on-drag="windowDrag">
         <label id="window-title" class="window-title">{{windowElement.title}}</label>
         <span class="window-button-group">
           <button id="minimize-button" class="window-button">v</button>
           <button id="maximize-button" class="window-button">^</button>
-          <button id="close-button" class="window-button">X</button>
+          <button id="close-button" class="window-button" on-click="close">X</button>
         </span>
       </div>
       <div id="window-content" class="window-content">
       </div>
       <div id="window-resize-panel" class="window-resize-panel">
         <div id="window-resize-handler" class="window-resize-handler" draggable="true"
-        on-drag-start="resizeDragStart" on-drag="resizeDrag" on-drop="resizeDrop">
+        on-dragstart="resizeDragStart" on-drag="resizeDrag">
         </div>
       </div>
     </div>
