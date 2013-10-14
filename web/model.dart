@@ -10,10 +10,11 @@ abstract class WindowElement extends Object with ObservableMixin {
   @observable int top;
   @observable int right;
   @observable int bottom;
-  @observable int width = 150;
-  @observable int height = 100;
+  @observable int _width = 150;
+  @observable int _height = 100;
 
   final String _uuid = new Uuid().v4();
+  final modal = false, movable = true, resizable = true;
   int minTop = 0;
   int minLeft = 0;
   int minBottom = 0;
@@ -23,8 +24,21 @@ abstract class WindowElement extends Object with ObservableMixin {
 
   get id => _uuid;
 
-  WindowElement();
+  WindowElement() {
+    onPropertyChange(this, const Symbol('_ẅidth'), () => notifyProperty(this, const Symbol('width')));
+    onPropertyChange(this, const Symbol('_height'), () => notifyProperty(this, const Symbol('height')));
+  }
 
+  get width => _width;
+  get height => _height;
+  set width(int width) {
+    if (width < 0) throw new Exception("Width can't be lower than 0.");
+    _width = width;
+  }
+  set height(int height) {
+    if (height < 0) throw new Exception("Height can't be lower than 0.");
+    _height = height;
+  }
   // return true to close the window, false to cancel.
   bool close();
 }
@@ -36,6 +50,7 @@ class WindowElementImpl extends WindowElement
     return true;
   }
 }
+
 class IconElement extends Object with ObservableMixin {
   @observable String name = "file";
   @observable String imageUrl = "./images/folder.png";
