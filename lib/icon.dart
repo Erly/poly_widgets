@@ -1,7 +1,7 @@
 library window;
 
 import 'dart:html';
-import 'model.dart';
+import 'model/model.dart';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('icon-component')

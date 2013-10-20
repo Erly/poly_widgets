@@ -73,7 +73,8 @@
         background-image: url("./images/arrow-resize.png"); }
     </style>
     <div id="id-{{windowElement.id}}" class="window" tabindex=-1 
-    style='width: {{windowElement.width}}px; height: {{windowElement.height}}px'>
+    style='width: {{windowElement.offset.width}}px; height: {{windowElement.offset.height}}px;
+    top: {{windowElement.offset.top}}px; left: {{windowElement.offset.left}}px;}'>
       <div id="window-header" class="window-header" draggable="true" 
       on-dragstart="windowDragStart" on-drag="windowDrag">
         <label id="window-title" class="window-title">{{windowElement.title}}</label>

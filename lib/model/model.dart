@@ -1,17 +1,15 @@
 library models;
 
+import 'dart:math';
 import 'package:polymer/polymer.dart';
 import 'package:uuid/uuid.dart';
+
+part 'implementations.dart';
 
 abstract class WindowElement extends Object with ObservableMixin {
 
   @observable String title = 'Window';
-  @observable int left;
-  @observable int top;
-  @observable int right;
-  @observable int bottom;
-  @observable int _width = 150;
-  @observable int _height = 100;
+  @observable MutableRectangle offset;
 
   final String _uuid = new Uuid().v4();
   final modal = false, movable = true, resizable = true;
@@ -24,13 +22,10 @@ abstract class WindowElement extends Object with ObservableMixin {
 
   get id => _uuid;
 
-  WindowElement() {
-    onPropertyChange(this, const Symbol('_ẅidth'), () => notifyProperty(this, const Symbol('width')));
-    onPropertyChange(this, const Symbol('_height'), () => notifyProperty(this, const Symbol('height')));
-  }
+  WindowElement(this.offset);
 
-  get width => _width;
-  get height => _height;
+  /*int get width => _width;
+  int get height => _height;
   set width(int width) {
     if (width < 0) throw new Exception("Width can't be lower than 0.");
     _width = width;
@@ -38,26 +33,25 @@ abstract class WindowElement extends Object with ObservableMixin {
   set height(int height) {
     if (height < 0) throw new Exception("Height can't be lower than 0.");
     _height = height;
-  }
+  }*/
+
+  onMoveStart(Point absolutePosition, int browserWidth, int browserHeight);
+  onMove(Point absolutePosition);
+
+  onResizeStart(Point absolutePosition, int browserWidth, int browserHeight);
+  onResize(Point absolutePosition);
+
   // return true to close the window, false to cancel.
-  bool close();
+  bool onClose();
 }
 
-class WindowElementImpl extends WindowElement
-{
-  bool close() {
-    print('The window $id has been closed.');
-    return true;
-  }
-}
-
-class IconElement extends Object with ObservableMixin {
+abstract class IconElement extends Object with ObservableMixin {
   @observable String name = "file";
   @observable String imageUrl = "./images/folder.png";
   @observable int width = 100;
   @observable int height = 90;
   @observable String style = "";
 
-  String action;
-  var actionData;
+  onDoubleClick();
+  onRightClick();
 }
