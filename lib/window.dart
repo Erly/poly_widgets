@@ -5,13 +5,15 @@ import 'dart:math';
 import 'model/model.dart';
 import 'package:polymer/polymer.dart';
 
-@CustomTag('window-component')
+@CustomTag('x-window')
 class WindowComponent extends PolymerElement {
   final WindowElement windowElement = new WindowElementImpl(new MutableRectangle(100, 100, 480, 320));
   Point _dragStartPoint;
   Point _windowDragStartPoint;
   int _windowStartWidth;
   int _windowStartHeight;
+
+  WindowComponent(this.windowElement);
 
   windowDragStart(MouseEvent e, var detail, Node target) {
     //_dragStartPoint = new Point(e.page.x, e.page.y);

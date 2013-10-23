@@ -2,5 +2,8 @@ name: poly_widgets
 description: A sample web application
 dependencies:
   browser: any
+  logging: any
   polymer: any
+  polymer_elements: any
+  polymer_ui_elements: any
   uuid: any

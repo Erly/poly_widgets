@@ -4,15 +4,15 @@ import 'dart:html';
 import 'model/model.dart';
 import 'package:polymer/polymer.dart';
 
-@CustomTag('icon-component')
+@CustomTag('x-icon')
 class IconComponent extends PolymerElement with ObservableMixin {
-  final IconElement iconElement = new IconElement();
+  final IconElement iconElement = new IconElementImpl();
 
-  iconFocus(Event e, var detai, Node target) {
+  iconFocus(Event e, var detail, Node target) {
     iconElement.style = 'focused';
   }
 
-  iconBlur(Event e, var detai, Node target) {
+  iconBlur(Event e, var detail, Node target) {
     iconElement.style = '';
   }
 }
