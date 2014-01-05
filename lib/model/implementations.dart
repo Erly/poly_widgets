@@ -5,7 +5,12 @@ class WindowElementImpl extends WindowElement
   Point _dragStartPoint, _windowReferencePoint;
   int _browserWidth, _browserHeight, _windowInitialWidth, _windowInitialHeight;
 
-  WindowElementImpl(int left, int top, int width, int height) : super(left, top, width, height);
+  WindowElementImpl(int left, int top, int width, int height, {int minTop: 0,
+    int minLeft: 0, int minBottom: 0, int minRight: 0, int minWidth: 150,
+    int minHeight: 100, bool modal: false, bool movable: true, bool resizable: true}) :
+      super(left, top, width, height, minTop: minTop, minLeft: minLeft,
+          minBottom: minBottom, minRight: minRight, minWidth: minWidth,
+          minHeight: minHeight, modal: modal, movable: movable, resizable: resizable);
 
   onMoveStart(Point absolutePosition, int browserWidth, int browserHeight) {
     _dragStartPoint = absolutePosition;

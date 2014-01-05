@@ -16,17 +16,15 @@ abstract class WindowElement extends Object with Observable {
   @observable int height;
 
   final String _uuid = new Uuid().v4();
-  final modal = false, movable = true, resizable = true;
-  int minTop = 0;
-  int minLeft = 0;
-  int minBottom = 0;
-  int minRight = 0;
-  int minWidth = 150;
-  int minHeight = 100;
+  final modal, movable, resizable;
+  int minTop, minLeft, minBottom, minRight, minWidth, minHeight;
 
   get id => _uuid;
 
-  WindowElement(this.left, this.top, this.width, this.height);
+  WindowElement(this.left, this.top, this.width, this.height, {this.minTop: 0,
+    this.minLeft: 0, this.minBottom: 0, this.minRight: 0, this.minWidth: 150,
+    this.minHeight: 100, this.modal: false, this.movable: true, this.resizable: true
+  });
 
   /*int get width => _width;
   int get height => _height;

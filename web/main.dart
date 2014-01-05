@@ -16,7 +16,7 @@ void _init() {
 
 void createWindow(MouseEvent e) {
   WindowComponent window = new WindowComponent(
-      new WindowElementImpl(100, 100, 640, 480)
+      new WindowElementImpl(100, 100, 640, 480, minWidth: 320, minHeight: 240)
   );
   window.style.position = "absolute";
   window.style.top = "0";
