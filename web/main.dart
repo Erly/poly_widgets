@@ -22,9 +22,11 @@ void createWindow(MouseEvent e) {
   window.style.top = "0";
   window.style.left = "0";
 
-  IconComponent icon = new IconComponent(
-      new IconElementImpl("Prueba", "http://www.erlantzoniga.com/images/folder.png", width: 100)
-  );
-  window.append(icon);
+  for (int i = 0; i < 10; i++) {
+    IconComponent icon = new IconComponent(
+        new IconElementImpl("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", width: 100)
+    );
+    window.append(icon);
+  }
   document.body.append(window);
 }
