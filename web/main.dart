@@ -1,13 +1,24 @@
+library main;
+
 import 'dart:html';
-import 'dart:math';
 import '../lib/model/model.dart';
 import '../lib/window.dart';
+import 'package:polymer/polymer.dart';
 
-void main() {
-  var window = query("#Window-test");
-  window = new WindowComponent(
-      new WindowElementImpl(
-          new MutableRectangle(100, 100, 640, 480)
-      )
+export 'package:polymer/init.dart';
+
+@initMethod
+void _init() {
+  ButtonElement createWindowButton = querySelector("#create-window-button");
+  createWindowButton.onClick.listen(createWindow);
+}
+
+void createWindow(MouseEvent e) {
+  WindowComponent window = new WindowComponent(
+      new WindowElementImpl(100, 100, 640, 480)
   );
+  window.style.position = "absolute";
+  window.style.top = "0";
+  window.style.left = "0";
+  document.body.append(window);
 }

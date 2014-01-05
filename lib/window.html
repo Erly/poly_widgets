@@ -16,7 +16,7 @@
         width: 640px;
         height: 480px;
         outline: none; }
-      
+
       .window-header {
         width: 100%;
         height: 24px;
@@ -29,24 +29,24 @@
         -khtml-user-select: none;
         -webkit-user-select: none;
         user-select: none; }
-      
+
       .window-title {
         display: inline-block;
         margin-top: 2px;
         font-weight: bold; }
-      
+
       .window-button-group {
         float: right;
         margin-right: 20px;
         opacity: 1; }
-      
+
       .window-button {
         background-color: #0a0a0a;
         border: none;
         height: 24px;
         width: 25px;
         color: white; }
-      
+
       .window-content {
         width: 100%;
         position: absolute;
@@ -55,14 +55,14 @@
         padding: 0 12px;
         background-color: white;
         overflow: auto; }
-      
+
       .window-resize-panel {
         position: absolute;
         bottom: 0;
         height: 15px;
         width: 100%;
         background-color: white; }
-      
+
       .window-resize-handler {
         position: absolute;
         right: 5px;
@@ -70,25 +70,26 @@
         width: 15px;
         height: 15px;
         cursor: se-resize;
-        background-image: url("./images/arrow-resize.png"); }
+        background-image: url("./packages/poly_widgets/images/arrow-resize.png"); }
     </style>
-    <div id="id-{{windowElement.id}}" class="window" tabindex=-1 
-    style='width: {{windowElement.offset.width}}px; height: {{windowElement.offset.height}}px;
-    top: {{windowElement.offset.top}}px; left: {{windowElement.offset.left}}px;}'>
-      <div id="window-header" class="window-header" draggable="true" 
-      on-dragstart="windowDragStart" on-drag="windowDrag">
+    <div id="id-{{windowElement.id}}" class="window" tabindex=-1
+    style='width: {{windowElement.width}}px; height: {{windowElement.height}}px;
+    top: {{windowElement.top}}px; left: {{windowElement.left}}px;}'>
+      <div id="window-header" class="window-header" draggable="true"
+      on-dragstart="{{windowDragStart}}" on-drag="{{windowDrag}}">
         <label id="window-title" class="window-title">{{windowElement.title}}</label>
         <span class="window-button-group">
           <button id="minimize-button" class="window-button">v</button>
           <button id="maximize-button" class="window-button">^</button>
-          <button id="close-button" class="window-button" on-click="close">X</button>
+          <button id="close-button" class="window-button" on-click="{{close}}">X</button>
         </span>
       </div>
       <div id="window-content" class="window-content">
+        <content></content>
       </div>
       <div id="window-resize-panel" class="window-resize-panel">
         <div id="window-resize-handler" class="window-resize-handler" draggable="true"
-        on-dragstart="resizeDragStart" on-drag="resizeDrag">
+        on-dragstart="{{resizeDragStart}}" on-drag="{{resizeDrag}}">
         </div>
       </div>
     </div>

@@ -6,10 +6,13 @@ import 'package:uuid/uuid.dart';
 
 part 'implementations.dart';
 
-abstract class WindowElement extends Object with ObservableMixin {
+abstract class WindowElement extends Object with Observable {
 
   @observable String title = 'Window';
-  @observable MutableRectangle offset;
+  @observable int left;
+  @observable int top;
+  @observable int width;
+  @observable int height;
 
   final String _uuid = new Uuid().v4();
   final modal = false, movable = true, resizable = true;
@@ -22,7 +25,7 @@ abstract class WindowElement extends Object with ObservableMixin {
 
   get id => _uuid;
 
-  WindowElement(this.offset);
+  WindowElement(this.left, this.top, this.width, this.height);
 
   /*int get width => _width;
   int get height => _height;
@@ -45,7 +48,7 @@ abstract class WindowElement extends Object with ObservableMixin {
   bool onClose();
 }
 
-abstract class IconElement extends Object with ObservableMixin {
+abstract class IconElement extends Object with Observable {
   @observable String name = "file";
   @observable String imageUrl = "./images/folder.png";
   @observable int width = 100;

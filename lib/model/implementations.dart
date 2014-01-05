@@ -5,11 +5,11 @@ class WindowElementImpl extends WindowElement
   Point _dragStartPoint, _windowReferencePoint;
   int _browserWidth, _browserHeight, _windowInitialWidth, _windowInitialHeight;
 
-  WindowElementImpl(MutableRectangle window) : super(window);
+  WindowElementImpl(int left, int top, int width, int height) : super(left, top, width, height);
 
   onMoveStart(Point absolutePosition, int browserWidth, int browserHeight) {
     _dragStartPoint = absolutePosition;
-    _windowReferencePoint = new Point(offset.left, offset.top);
+    _windowReferencePoint = new Point(left, top);
     this._browserWidth = browserWidth;
     this._browserHeight = browserHeight;
   }
@@ -17,21 +17,21 @@ class WindowElementImpl extends WindowElement
   onMove(Point absolutePosition) {
     Point newWindowPosition = _windowReferencePoint + (absolutePosition - _dragStartPoint);
 
-    if (newWindowPosition.x >= minLeft && newWindowPosition.x + offset.width <
+    if (newWindowPosition.x >= minLeft && newWindowPosition.x + width <
         _browserWidth - minRight)
-      offset.left = newWindowPosition.x;
-    if (newWindowPosition.y >= minTop && newWindowPosition.y + offset.height <
+      left = newWindowPosition.x;
+    if (newWindowPosition.y >= minTop && newWindowPosition.y + height <
         _browserHeight - minBottom)
-      offset.top = newWindowPosition.y;
+      top = newWindowPosition.y;
   }
 
   onResizeStart(Point absolutePosition, int browserWidth, int browserHeight) {
     _dragStartPoint = absolutePosition;
-    _windowReferencePoint = new Point(offset.left + offset.width, offset.top + offset.height);
+    _windowReferencePoint = new Point(left + width, top + height);
     _browserWidth = browserWidth;
     _browserHeight = browserHeight;
-    _windowInitialWidth = offset.width;
-    _windowInitialHeight = offset.height;
+    _windowInitialWidth = width;
+    _windowInitialHeight = height;
   }
 
   onResize(Point absolutePosition) {
@@ -39,15 +39,11 @@ class WindowElementImpl extends WindowElement
     Point newReferencePoint = _windowReferencePoint + movedPosition;
     int newWidth = _windowInitialWidth + movedPosition.x;
     int newHeight = _windowInitialHeight + movedPosition.y;
-//    print ("MovedPosition: movedPosition");
-//    print('New relative position: $newRelativePosition');
-//    print('width: $newWidth');
-//    print('height: $newHeight');
 
     if (newWidth >= minWidth && newReferencePoint.x < _browserWidth - minRight)
-      offset.width = newWidth;
+      width = newWidth;
     if (newHeight >= minHeight && newReferencePoint.y < _browserHeight - minBottom)
-      offset.height = newHeight;
+      height = newHeight;
   }
 
   bool onClose() {

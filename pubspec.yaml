@@ -1,5 +1,9 @@
 name: poly_widgets
+author: Erlantz Oniga
+version: 0.0.1
 description: A sample web application
+environment:
+  sdk: '>=1.0.0 <2.0.0'
 dependencies:
   browser: any
   logging: any
