@@ -1,5 +1,6 @@
 library icon;
 
+import 'dart:async';
 import 'dart:html';
 import 'model/model.dart';
 import 'package:polymer/polymer.dart';
@@ -23,11 +24,11 @@ class IconComponent extends PolymerElement {
   IconComponent.created() : super.created();
 
   iconDoubleClick(MouseEvent e, var detail, Node target) {
-    _iconElement.onDoubleClick(e);
+    _iconElement.onDoubleClick.add(e);
   }
 
   iconRightClick(MouseEvent e, var detail, Node target) {
-    _iconElement.onRightClick(e);
+    _iconElement.onRightClick.add(e);
   }
 
   iconFocus(Event e, var detail, Node target) {

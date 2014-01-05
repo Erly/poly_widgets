@@ -15,18 +15,24 @@ void _init() {
 }
 
 void createWindow(MouseEvent e) {
-  WindowComponent window = new WindowComponent(
+  WindowComponent wnd = new WindowComponent(
       new WindowElementImpl("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240)
   );
-  window.style.position = "absolute";
-  window.style.top = "0";
-  window.style.left = "0";
+  wnd.style.position = "absolute";
+  wnd.style.top = "0";
+  wnd.style.left = "0";
 
   for (int i = 0; i < 10; i++) {
     IconComponent icon = new IconComponent(
         new IconElementImpl("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", width: 100)
+        ..onDoubleClick.stream.listen((e) => window.alert("You double clicked the icon Prueba $i"))
+        ..onRightClick.stream.listen((e) {
+          e.stopPropagation();
+          e.preventDefault();
+          window.alert("You right clicked the icon Prueba $i");
+        })
     );
-    window.append(icon);
+    wnd.append(icon);
   }
-  document.body.append(window);
+  document.body.append(wnd);
 }

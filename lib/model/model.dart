@@ -1,5 +1,6 @@
 library models;
 
+import 'dart:async';
 import 'dart:html';
 import 'dart:math';
 import 'package:polymer/polymer.dart';
@@ -58,8 +59,11 @@ abstract class IconElement extends Object with Observable {
 
   get isFocused => _focused;
 
+  StreamController<Event> onDoubleClick = new StreamController<Event>();
+  StreamController<Event> onRightClick = new StreamController<Event>();
+
   onFocus() => _focused = true;
   onBlur() => _focused = false;
-  onDoubleClick(MouseEvent e);
-  onRightClick(MouseEvent e);
+  //onDoubleClick(MouseEvent e);
+  //onRightClick(MouseEvent e);
 }
