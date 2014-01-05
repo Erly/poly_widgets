@@ -1,5 +1,6 @@
 library models;
 
+import 'dart:html';
 import 'dart:math';
 import 'package:polymer/polymer.dart';
 import 'package:uuid/uuid.dart';
@@ -53,8 +54,14 @@ abstract class IconElement extends Object with Observable {
   @observable String imageUrl = "./images/folder.png";
   @observable int width = 100;
   @observable int height = 90;
-  @observable String style = "";
+  bool _focused = false;
 
-  onDoubleClick();
-  onRightClick();
+  IconElement(this.name, this.imageUrl, {this.width, this.height});
+
+  get isFocused => _focused;
+
+  onFocus() => _focused = true;
+  onBlur() => _focused = false;
+  onDoubleClick(MouseEvent e);
+  onRightClick(MouseEvent e);
 }

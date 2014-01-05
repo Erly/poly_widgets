@@ -1,31 +1,14 @@
-<!DOCTYPE html>
-
-<polymer-element name="x-icon" extends="div">
+<polymer-element name="x-icon">
   <template>
-    <style>
-    .folder {
-      display: inline-block;
-      padding: 5px;
-      vertical-align: top;
-      text-align: center;
-      font-size: 0.7em;
-      font-weight: normal;
-      overflow-x: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap; }
+    <link rel="stylesheet" href="styles/icon.css">
 
-    .folder-img {
-      display: block; }
-
-    .focused {
-      background-color: blue;
-      color: white;}
-    </style>
-    <div id="folder-item" class="folder" tabindex=0 style="width: {{icon.width}};"
+    <div id="folder-item" class="icon" tabindex=0 style="width: auto; height: auto;"
+      on-dblclick="{{iconDoubleClick}}" on-contextmenu="{{iconRightClick}}"
       on-focus="{{iconFocus}}" on-blur="{{iconBlur}}">
-      <img alt="{{icon.name}}" src={{icon.url}} class="folder-img" style="height: {{icon.height}};" />
-      <span id="folder-name" class={{icon.style}}>$name</span>
+      <img alt="{{iconElement.name}}" src={{iconElement.imageUrl}} class="icon-img"
+          style="height: {{iconElement.height}}px; width: {{iconElement.width}}px;" />
+      <span id="folder-name">{{iconElement.name}}</span>
     </div>
   </template>
-  <script type="application/dart" src="window.dart"></script>
+  <script type="application/dart" src="icon.dart"></script>
 </polymer-element>
