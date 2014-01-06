@@ -19,6 +19,15 @@ class IconComponent extends PolymerElement {
 
   @reflectable set _icnElement(IconElement newIconElement) {
     _iconElement = notifyPropertyChange(#iconElement, _iconElement, newIconElement);
+
+    if(_iconElement.width != null) {
+      shadowRoot.querySelector('.icon').style.maxWidth = '${_iconElement.width + 20}px';
+    } else if(_iconElement.height != null) {
+      int width = shadowRoot.querySelector('.icon-img').offsetWidth;
+
+      shadowRoot.querySelector('.icon').style.maxWidth = '${width + 20}px';
+    }
+
   }
 
   IconComponent.created() : super.created();

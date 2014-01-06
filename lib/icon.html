@@ -2,12 +2,12 @@
   <template>
     <link rel="stylesheet" href="styles/icon.css">
 
-    <div id="folder-item" class="icon" tabindex=0 style="width: auto; height: auto;"
+    <div id="icon" class="icon" tabindex=0 style="width: auto; height: auto; max-width: {{iconElement.maxWidth}}px"
       on-dblclick="{{iconDoubleClick}}" on-contextmenu="{{iconRightClick}}"
       on-focus="{{iconFocus}}" on-blur="{{iconBlur}}">
       <img alt="{{iconElement.name}}" src={{iconElement.imageUrl}} class="icon-img"
           style="height: {{iconElement.height}}px; width: {{iconElement.width}}px;" />
-      <span id="folder-name">{{iconElement.name}}</span>
+      <div id="icon-name">{{iconElement.name}}</div>
     </div>
   </template>
   <script type="application/dart" src="icon.dart"></script>

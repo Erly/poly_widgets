@@ -59,8 +59,8 @@ class WindowElementImpl extends WindowElement
 
 class IconElementImpl extends IconElement {
 
-  IconElementImpl(String name, String imageUrl, {int width, int height}) :
-    super(name, imageUrl, width: width, height: height);
+  IconElementImpl(String name, String imageUrl, int maxWidth, {int width, int height}) :
+    super(name, imageUrl, maxWidth, width: width, height: height);
 
 //  onDoubleClick(MouseEvent e) {
 //    window.alert("You double clicked the icon $name");

@@ -60,11 +60,12 @@ abstract class WindowElement extends Object with Observable {
 abstract class IconElement extends Object with Observable {
   @observable String name = "file";
   @observable String imageUrl = "./images/folder.png";
-  @observable int width = 100;
-  @observable int height = 90;
+  @observable int width;
+  @observable int height;
+  @observable int maxWidth = 100;
   bool _focused = false;
 
-  IconElement(this.name, this.imageUrl, {this.width, this.height});
+  IconElement(this.name, this.imageUrl, this.maxWidth, {this.width, this.height});
 
   get isFocused => _focused;
 

@@ -23,7 +23,7 @@ void createWindow(MouseEvent e) {
 
   for (int i = 0; i < 10; i++) {
     IconComponent icon = new IconComponent(
-        new IconElementImpl("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", width: 100)
+        new IconElementImpl("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", 120, height: 100)
         ..onDoubleClick.stream.listen((e) => window.alert("You double clicked the icon Prueba $i"))
         ..onRightClick.stream.listen((e) {
           e.stopPropagation();
@@ -34,7 +34,8 @@ void createWindow(MouseEvent e) {
     wnd.addContent(icon);
   }
   IconComponent icon = new IconComponent(
-      new IconElementImpl("Clear", "http://www.erlantzoniga.com/images/folder.png", width: 100)
+      new IconElementImpl("This icon clears the window and has a reaaaaly long text",
+          "http://www.erlantzoniga.com/images/folder.png", 120, height: 100)
         ..onDoubleClick.stream.listen((e) => w.windowElement.clear())
     );
     wnd.addContent(icon);
