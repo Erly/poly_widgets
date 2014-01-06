@@ -34,5 +34,10 @@ void createWindow(MouseEvent e) {
     );
     wnd.append(icon);
   }
+  IconComponent icon = new IconComponent(
+      new IconElementImpl("Clear", "http://www.erlantzoniga.com/images/folder.png", width: 100)
+        ..onDoubleClick.stream.listen((e) => wnd.windowElement.clear())
+    );
+    wnd.append(icon);
   document.body.append(wnd);
 }

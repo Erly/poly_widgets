@@ -22,6 +22,9 @@ abstract class WindowElement extends Object with Observable {
 
   get id => _uuid;
 
+  StreamController _onClear = new StreamController();
+  StreamController get onClear => _onClear;
+
   WindowElement(this.title, this.left, this.top, this.width, this.height, {this.minTop: 0,
     this.minLeft: 0, this.minBottom: 0, this.minRight: 0, this.minWidth: 150,
     this.minHeight: 100, this.modal: false, this.movable: true, this.resizable: true
@@ -46,6 +49,8 @@ abstract class WindowElement extends Object with Observable {
 
   // return true to close the window, false to cancel.
   bool onClose();
+
+  clear() => _onClear.add(new Event("clear"));
 }
 
 abstract class IconElement extends Object with Observable {
