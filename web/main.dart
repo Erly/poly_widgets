@@ -15,12 +15,11 @@ void _init() {
 }
 
 void createWindow(MouseEvent e) {
-  WindowComponent wnd = new WindowComponent(
-      new WindowElementImpl("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240)
-  );
-  wnd.style.position = "absolute";
-  wnd.style.top = "0";
-  wnd.style.left = "0";
+  WindowElement wnd = new WindowElementImpl("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240);
+  WindowComponent w = new WindowComponent(wnd);
+  w.style.position = "absolute";
+  w.style.top = "0";
+  w.style.left = "0";
 
   for (int i = 0; i < 10; i++) {
     IconComponent icon = new IconComponent(
@@ -32,12 +31,12 @@ void createWindow(MouseEvent e) {
           window.alert("You right clicked the icon Prueba $i");
         })
     );
-    wnd.append(icon);
+    wnd.addContent(icon);
   }
   IconComponent icon = new IconComponent(
       new IconElementImpl("Clear", "http://www.erlantzoniga.com/images/folder.png", width: 100)
-        ..onDoubleClick.stream.listen((e) => wnd.windowElement.clear())
+        ..onDoubleClick.stream.listen((e) => w.windowElement.clear())
     );
-    wnd.append(icon);
-  document.body.append(wnd);
+    wnd.addContent(icon);
+  document.body.append(w);
 }

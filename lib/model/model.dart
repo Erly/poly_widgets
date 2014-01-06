@@ -24,6 +24,8 @@ abstract class WindowElement extends Object with Observable {
 
   StreamController _onClear = new StreamController();
   StreamController get onClear => _onClear;
+  StreamController<HtmlElement> _onContentAdded = new StreamController<HtmlElement>();
+  StreamController<HtmlElement> get onContentAdded => _onContentAdded;
 
   WindowElement(this.title, this.left, this.top, this.width, this.height, {this.minTop: 0,
     this.minLeft: 0, this.minBottom: 0, this.minRight: 0, this.minWidth: 150,
@@ -50,7 +52,9 @@ abstract class WindowElement extends Object with Observable {
   // return true to close the window, false to cancel.
   bool onClose();
 
-  clear() => _onClear.add(new Event("clear"));
+  clear() => _onClear.add("clear");
+
+  addContent(HtmlElement el) => _onContentAdded.add(el);
 }
 
 abstract class IconElement extends Object with Observable {
@@ -64,8 +68,10 @@ abstract class IconElement extends Object with Observable {
 
   get isFocused => _focused;
 
-  StreamController<Event> onDoubleClick = new StreamController<Event>();
-  StreamController<Event> onRightClick = new StreamController<Event>();
+  StreamController<Event> _onDoubleClick = new StreamController<Event>();
+  StreamController<Event> _onRightClick = new StreamController<Event>();
+  StreamController<Event> get onDoubleClick => _onDoubleClick;
+  StreamController<Event> get onRightClick => _onRightClick;
 
   onFocus() => _focused = true;
   onBlur() => _focused = false;

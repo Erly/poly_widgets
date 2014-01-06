@@ -16,6 +16,7 @@ class WindowComponent extends PolymerElement {
   factory WindowComponent(WindowElement windowElement) {
     WindowComponent w = new Element.tag('x-window');
     w._wndElement = windowElement;
+    w._windowElement.onContentAdded.stream.listen((el) => w.children.add(el));
     w._windowElement.onClear.stream.listen((_) => w.children.clear());
     return w;
   }
