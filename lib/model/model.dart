@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:math';
 import 'package:polymer/polymer.dart';
-import 'package:uuid/uuid.dart';
 
 part 'implementations.dart';
 
@@ -17,11 +16,8 @@ abstract class WindowElement extends Object with Observable {
   @observable int height;
   @observable int zIndex;
 
-  final String _uuid = new Uuid().v4();
   final modal, movable, resizable;
   int minTop, minLeft, minBottom, minRight, minWidth, minHeight;
-
-  get id => _uuid;
 
   StreamController _onClear = new StreamController();
   Stream get onClear => _onClear.stream;

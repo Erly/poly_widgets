@@ -53,15 +53,15 @@ class WindowElementImpl extends WindowElement
   }
 
   onFocus() {
-    print('The window $id has been focused.');
+    print('The window has been focused.');
   }
 
   onBlur() {
-    print('The window $id has lost focus.');
+    print('The window has lost focus.');
   }
 
   bool onClose() {
-    print('The window $id has been closed.');
+    print('The window has been closed.');
     return true;
   }
 }
