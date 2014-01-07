@@ -49,6 +49,9 @@ abstract class WindowElement extends Object with Observable {
   onResizeStart(Point absolutePosition, int browserWidth, int browserHeight);
   onResize(Point absolutePosition);
 
+  onFocus();
+  onBlur();
+
   // return true to close the window, false to cancel.
   bool onClose();
 

@@ -18,6 +18,8 @@ class WindowComponent extends PolymerElement {
     w._wndElement = windowElement;
     w._windowElement.onContentAdded.stream.listen((el) => w.children.add(el));
     w._windowElement.onClear.stream.listen((_) => w.children.clear());
+    w.onFocus.listen((_) => w._windowElement.onFocus());
+    w.onBlur.listen((_) => w._windowElement.onBlur());
     return w;
   }
 

@@ -2,6 +2,7 @@
   <template>
     <link rel="stylesheet" href="styles/window.css">
     <div id="id-{{windowElement.id}}" class="window" tabindex=-1
+    on-focus="{{onFocus}}" on-blur="{{onBlur}}"
     style='width: {{windowElement.width}}px; height: {{windowElement.height}}px;
     top: {{windowElement.top}}px; left: {{windowElement.left}}px;}'>
       <div id="window-header" class="window-header" draggable="true"

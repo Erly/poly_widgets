@@ -51,6 +51,14 @@ class WindowElementImpl extends WindowElement
       height = newHeight;
   }
 
+  onFocus() {
+    print('The window $id has been focused.');
+  }
+
+  onBlur() {
+    print('The window $id has lost focus.');
+  }
+
   bool onClose() {
     print('The window $id has been closed.');
     return true;
