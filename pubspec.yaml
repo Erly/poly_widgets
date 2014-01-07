@@ -1,13 +1,13 @@
 name: poly_widgets
 author: Erlantz Oniga
-version: 0.1.3+1
+version: 0.1.3+2
 description: A sample web application
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
   browser: any
   logging: any
-  polymer: any
+  polymer: '>0.9.3'
   uuid: any
 dev_dependencies:
   polymer_elements: any
