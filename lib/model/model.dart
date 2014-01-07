@@ -15,6 +15,7 @@ abstract class WindowElement extends Object with Observable {
   @observable int top;
   @observable int width;
   @observable int height;
+  @observable int zIndex;
 
   final String _uuid = new Uuid().v4();
   final modal, movable, resizable;
@@ -23,13 +24,15 @@ abstract class WindowElement extends Object with Observable {
   get id => _uuid;
 
   StreamController _onClear = new StreamController();
-  StreamController get onClear => _onClear;
+  Stream get onClear => _onClear.stream;
   StreamController<HtmlElement> _onContentAdded = new StreamController<HtmlElement>();
-  StreamController<HtmlElement> get onContentAdded => _onContentAdded;
+  Stream<HtmlElement> get onContentAdded => _onContentAdded.stream;
+
 
   WindowElement(this.title, this.left, this.top, this.width, this.height, {this.minTop: 0,
     this.minLeft: 0, this.minBottom: 0, this.minRight: 0, this.minWidth: 150,
-    this.minHeight: 100, this.modal: false, this.movable: true, this.resizable: true
+    this.minHeight: 100, this.zIndex, this.modal: false, this.movable: true,
+    this.resizable: true
   });
 
   /*int get width => _width;
