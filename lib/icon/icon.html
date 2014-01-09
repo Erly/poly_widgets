@@ -1,0 +1,12 @@
+<polymer-element name="x-icon" extends="div" attributes="src width height name">
+  <template>
+    <link rel="stylesheet" href="icon.css">
+    <link rel="stylesheet" href="icon_old.css"><!-- TODO remove -->
+
+    <img alt="{{name}}" src={{src}} class="icon-img"
+        style="height: {{height}}px; width: {{width}}px;" />
+    <div id="icon-name">{{name}}</div>
+    </div>
+  </template>
+  <script type="application/dart" src="icon.dart"></script>
+</polymer-element>

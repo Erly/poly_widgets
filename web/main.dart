@@ -1,11 +1,8 @@
 library main;
 
 import 'dart:html';
-//import '../lib/model/model.dart';
-//import '../lib/icon.dart';
-import '../lib/new_icon.dart';
-import '../lib/new_window.dart';
-//import '../lib/window.dart';
+import '../lib/icon/icon.dart';
+import '../lib/window/window.dart';
 import 'package:polymer/polymer.dart';
 
 export 'package:polymer/init.dart';
@@ -17,9 +14,7 @@ void _init() {
 }
 
 void createWindow(MouseEvent e) {
-  //WindowElement wnd = new WindowElementImpl("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240);
   NewWindowComponent w = new NewWindowComponent("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240);
-  //WindowComponent w = new WindowComponent(wnd);
   w.onClose.listen((_) => w.remove());
 
   for (int i = 0; i < 10; i++) {

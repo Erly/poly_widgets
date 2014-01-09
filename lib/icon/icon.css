@@ -1,0 +1,22 @@
+:host {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+  text-align: center;
+  font-size: 0.7em;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host:focus {
+  background-color: lightblue;
+  color: white;
+  overflow-x: visible;
+  text-overflow: visible;
+}
+
+:host(.icon-img:host) {
+  display: block;
+  padding: 5px;
+}

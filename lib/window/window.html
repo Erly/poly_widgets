@@ -1,6 +1,8 @@
-<polymer-element name="x-window2" extends="div" attributes="title modal movable resizable minTop minLeft minBottom minRight minWidth minHeight">
+<polymer-element name="x-window" extends="div" attributes="title modal movable resizable minTop minLeft minBottom minRight minWidth minHeight">
   <template>
-    <link rel="stylesheet" href="styles/window.css">
+    <link rel="stylesheet" href="window.css">
+    <link rel="stylesheet" href="window_old.css"><!-- TODO remove -->
+
     <div id="window-header" class="window-header" draggable="true"
         on-dragstart="{{windowDragStart}}" on-drag="{{windowDrag}}">
       <label id="window-title" class="window-title">{{windowElement.title}}</label>
@@ -19,5 +21,5 @@
       </div>
     </div>
   </template>
-  <script type="application/dart" src="new_window.dart"></script>
+  <script type="application/dart" src="window.dart"></script>
 </polymer-element>

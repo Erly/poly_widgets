@@ -5,7 +5,7 @@ import 'dart:html';
 import 'dart:math';
 import 'package:polymer/polymer.dart';
 
-@CustomTag('x-window2')
+@CustomTag('x-window')
 class NewWindowComponent extends DivElement with Polymer, Observable {
 
   @published String title = 'Window';
@@ -14,6 +14,8 @@ class NewWindowComponent extends DivElement with Polymer, Observable {
 
   Point _dragStartPoint, _windowReferencePoint;
   int _windowInitialWidth, _windowInitialHeight;
+
+  ImageElement _invPixel = new ImageElement(src: "packages/poly_widgets/window/001pixel.gif");
 
   StreamController _onMinimize = new StreamController();
   Stream get onMinimize => _onMinimize.stream;
@@ -27,7 +29,7 @@ class NewWindowComponent extends DivElement with Polymer, Observable {
     int minHeight: 100, int zIndex, bool modal: false, bool movable: true,
     bool resizable: true
   }) {
-    NewWindowComponent w = new Element.tag('div', 'x-window2');
+    NewWindowComponent w = new Element.tag('div', 'x-window');
     w.style.position = 'absolute';
     w.title = title;
     w.style.top = '${top}px';
@@ -47,25 +49,17 @@ class NewWindowComponent extends DivElement with Polymer, Observable {
     return w;
   }
 
-  /*@reflectable get windowElement => _windowElement;
-
-  @reflectable set _wndElement(WindowElement newWindowElement) {
-    _windowElement = notifyPropertyChange(#windowElement, _windowElement, newWindowElement);
-  }*/
-
   NewWindowComponent.created() : super.created();
 
   windowDragStart(MouseEvent e, var detail, Node target) {
-    //_windowElement.onMoveStart(e.page, window.innerWidth, window.innerHeight);
     _dragStartPoint = e.page;
     _windowReferencePoint = new Point(offsetLeft, offsetTop);
     e.dataTransfer.effectAllowed = "none";
-    e.dataTransfer.setDragImage(new ImageElement(src: "http://lib.store.yahoo.net/lib/simplywhispers/001pixel.gif"), 0, 0);
+    e.dataTransfer.setDragImage(_invPixel, 0, 0);
     e.dataTransfer.dropEffect = "none";
   }
 
   windowDrag(MouseEvent e, var detail, Node target) {
-    //_windowElement.onMove(e.page);
     if (movable) {
       Point newWindowPosition = _windowReferencePoint + (e.page - _dragStartPoint);
 
@@ -79,18 +73,16 @@ class NewWindowComponent extends DivElement with Polymer, Observable {
   }
 
   resizeDragStart(MouseEvent e, var detail, Node target) {
-    //_windowElement.onResizeStart(e.page, window.innerWidth, window.innerHeight);
     _dragStartPoint = e.page;
     _windowReferencePoint = new Point(offsetLeft + offsetWidth, offsetTop + offsetHeight);
     _windowInitialWidth = offsetWidth;
     _windowInitialHeight = offsetHeight;
     e.dataTransfer.effectAllowed = "none";
-    e.dataTransfer.setDragImage(new ImageElement(src: "http://lib.store.yahoo.net/lib/simplywhispers/001pixel.gif"), 0, 0);
+    e.dataTransfer.setDragImage(_invPixel, 0, 0);
     e.dataTransfer.dropEffect = "none";
   }
 
   resizeDrag(MouseEvent e, var detail, Node target) {
-    //_windowElement.onResize(e.page);
     if (resizable) {
       Point movedPosition = e.page - _dragStartPoint;
       Point newReferencePoint = _windowReferencePoint + movedPosition;
