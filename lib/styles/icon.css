@@ -21,6 +21,29 @@
   padding: 5px;
 }*/
 
+@host {
+  * {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    text-align: center;
+    font-size: 0.7em;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: break-word;
+  }
+  *:focus {
+    background-color: lightblue;
+    color: white;
+    overflow: visible;
+    white-space: normal;
+  }
+}
+
 .icon {
   display: inline-block;
   vertical-align: top;

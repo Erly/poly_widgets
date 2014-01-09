@@ -1,8 +1,9 @@
 library main;
 
 import 'dart:html';
-import '../lib/model/model.dart';
-import '../lib/icon.dart';
+//import '../lib/model/model.dart';
+//import '../lib/icon.dart';
+import '../lib/new_icon.dart';
 import '../lib/new_window.dart';
 //import '../lib/window.dart';
 import 'package:polymer/polymer.dart';
@@ -22,22 +23,18 @@ void createWindow(MouseEvent e) {
   w.onClose.listen((_) => w.remove());
 
   for (int i = 0; i < 10; i++) {
-    IconComponent icon = new IconComponent(
-        new IconElementImpl("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", 120, height: 100)
-        ..onDoubleClick.stream.listen((e) => window.alert("You double clicked the icon Prueba $i"))
-        ..onRightClick.stream.listen((e) {
+    NewIconComponent icon = new NewIconComponent("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", 100, 100)
+      ..onDoubleClick.listen((e) => window.alert("You double clicked the icon Prueba $i"))
+      ..onContextMenu.listen((e) {
           e.stopPropagation();
           e.preventDefault();
           window.alert("You right clicked the icon Prueba $i");
-        })
-    );
+      });
     w.append(icon);
   }
-  IconComponent icon = new IconComponent(
-      new IconElementImpl("This icon clears the window and has a reaaaaly long text",
-          "http://www.erlantzoniga.com/images/folder.png", 120, height: 100)
-        ..onDoubleClick.stream.listen((e) => w.children.clear())
-    );
-    w.append(icon);
+  NewIconComponent icon = new NewIconComponent("This icon clears the window and has a reaaaaly long text",
+          "http://www.erlantzoniga.com/images/folder.png", 100, 100)
+    ..onDoubleClick.listen((e) => w.children.clear());
+  w.append(icon);
   document.body.append(w);
 }
