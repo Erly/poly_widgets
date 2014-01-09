@@ -4,12 +4,12 @@ import 'dart:html';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('x-icon')
-class NewIconComponent extends DivElement with Polymer, Observable {
+class IconComponent extends DivElement with Polymer, Observable {
   @published String src, name;
   @published int width, height;
 
-  factory NewIconComponent(String name, String src, int width, int height) {
-    NewIconComponent i = new Element.tag('div', 'x-icon');
+  factory IconComponent(String name, String src, int width, int height) {
+    IconComponent i = new Element.tag('div', 'x-icon');
     i.name = name;
     i.src = src;
     i.width = width;
@@ -19,6 +19,6 @@ class NewIconComponent extends DivElement with Polymer, Observable {
     return i;
   }
 
-  NewIconComponent.created() : super.created();
+  IconComponent.created() : super.created();
 
 }

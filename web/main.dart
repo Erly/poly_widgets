@@ -14,11 +14,11 @@ void _init() {
 }
 
 void createWindow(MouseEvent e) {
-  NewWindowComponent w = new NewWindowComponent("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240);
+  WindowComponent w = new WindowComponent("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240);
   w.onClose.listen((_) => w.remove());
 
   for (int i = 0; i < 10; i++) {
-    NewIconComponent icon = new NewIconComponent("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", 100, 100)
+    IconComponent icon = new IconComponent("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", 100, 100)
       ..onDoubleClick.listen((e) => window.alert("You double clicked the icon Prueba $i"))
       ..onContextMenu.listen((e) {
           e.stopPropagation();
@@ -27,7 +27,7 @@ void createWindow(MouseEvent e) {
       });
     w.append(icon);
   }
-  NewIconComponent icon = new NewIconComponent("This icon clears the window and has a reaaaaly long text",
+  IconComponent icon = new IconComponent("This icon clears the window and has a reaaaaly long text",
           "http://www.erlantzoniga.com/images/folder.png", 100, 100)
     ..onDoubleClick.listen((e) => w.children.clear());
   w.append(icon);

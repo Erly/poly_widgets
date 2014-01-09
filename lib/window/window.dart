@@ -6,7 +6,7 @@ import 'dart:math';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('x-window')
-class NewWindowComponent extends DivElement with Polymer, Observable {
+class WindowComponent extends DivElement with Polymer, Observable {
 
   @published String title = 'Window';
   @published bool modal = false, movable = true, resizable = true;
@@ -24,12 +24,12 @@ class NewWindowComponent extends DivElement with Polymer, Observable {
   StreamController _onClose = new StreamController();
   Stream get onClose => _onClose.stream;
 
-  factory NewWindowComponent(String title, int left, int top, int width, int height, {int minTop: 0,
+  factory WindowComponent(String title, int left, int top, int width, int height, {int minTop: 0,
     int minLeft: 0, int minBottom: 0, int minRight: 0, int minWidth: 150,
     int minHeight: 100, int zIndex, bool modal: false, bool movable: true,
     bool resizable: true
   }) {
-    NewWindowComponent w = new Element.tag('div', 'x-window');
+    WindowComponent w = new Element.tag('div', 'x-window');
     w.style.position = 'absolute';
     w.title = title;
     w.style.top = '${top}px';
@@ -49,7 +49,7 @@ class NewWindowComponent extends DivElement with Polymer, Observable {
     return w;
   }
 
-  NewWindowComponent.created() : super.created();
+  WindowComponent.created() : super.created();
 
   windowDragStart(MouseEvent e, var detail, Node target) {
     _dragStartPoint = e.page;
