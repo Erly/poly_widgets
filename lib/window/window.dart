@@ -1,4 +1,4 @@
-library new_window;
+library window;
 
 import 'dart:async';
 import 'dart:html';

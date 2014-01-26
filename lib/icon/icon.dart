@@ -1,4 +1,4 @@
-library new_icon;
+library icon;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
