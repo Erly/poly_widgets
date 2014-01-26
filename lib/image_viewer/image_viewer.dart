@@ -1,8 +1,9 @@
 library image_viewer;
 
 import 'dart:html';
-import 'image.dart';
 import 'package:polymer/polymer.dart';
+
+part 'image.dart';
 
 @CustomTag('x-image-viewer')
 class ImageViewerComponent extends DivElement with Polymer, Observable {
@@ -17,11 +18,13 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
     iv.maxHeight = maxHeight;
     iv.onKeyPress.listen((key) {
       if (key.keyCode == KeyCode.LEFT) {
-        previous();
+        iv.previous();
       } else if (key.keyCode == KeyCode.RIGHT) {
-        next();
+        iv.next();
       } else if (key.keyCode == KeyCode.SPACE) {
-        fullscreen();
+        iv.fullscreen();
+      } else if (key.keyCode == KeyCode.ESC) {
+        iv.remove();
       }
     });
     return iv;

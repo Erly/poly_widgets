@@ -1,4 +1,4 @@
-library image_viewer;
+part of image_viewer;
 
 class Image {
   String name, src;
