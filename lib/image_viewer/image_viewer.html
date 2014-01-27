@@ -3,8 +3,7 @@
     <link rel="stylesheet" href="image_viewer.css">
     <link rel="stylesheet" href="image_viewer_old.css"><!-- TODO remove -->
 
-    <img alt="{{images[position].name}}" src={{images[position].src}} class="image"
-        style="height: {{images[position].height}}px; width: {{images[position].width}}px;" />
+    <img alt="{{images[position].name}}" src={{images[position].src}} class="image" />
     <div id="button-panel" class="button-panel">
       <button id="previous" on-click={{previousClick}}>Previous</button>
       <button id="next" on-click={{nextClick}}>Next</button>

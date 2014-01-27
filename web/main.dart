@@ -32,11 +32,11 @@ void createWindow(MouseEvent e) {
           "http://www.erlantzoniga.com/images/folder.png", 100, 100)
     ..onDoubleClick.listen((e) => w.children.clear());
 
-  Photo img1 = new Photo("Image 1", "http://cdn.theatlantic.com/static/infocus/ngpc112812/s_n01_nursingm.jpg", 800, 640);
-  Photo img2 = new Photo("Image 2", "http://images5.fanpop.com/image/photos/31400000/Animals-animals-31477008-1280-1024.jpg", 800, 640);
-  Photo img3 = new Photo("Image 3", "http://www.personal.psu.edu/afr3/blogs/siowfa13/Tigers-animals-20238015-2493-1983.jpg", 800, 640);
-  Photo img4 = new Photo("Image 4", "http://nexus.tripsit.me/file/pic/user/758.jpg", 800, 640);
-  Photo img5 = new Photo("Image 5", "http://jattyouth.com/photobyusers/data/Animals/50f583ce7c43d.jpg", 800, 640);
+  Photo img1 = new Photo("Image 1", "http://cdn.theatlantic.com/static/infocus/ngpc112812/s_n01_nursingm.jpg", 991, 678);
+  Photo img2 = new Photo("Image 2", "http://images5.fanpop.com/image/photos/31400000/Animals-animals-31477008-1280-1024.jpg", 1280, 1024);
+  Photo img3 = new Photo("Image 3", "http://www.personal.psu.edu/afr3/blogs/siowfa13/Tigers-animals-20238015-2493-1983.jpg", 2493, 1983);
+  Photo img4 = new Photo("Image 4", "http://nexus.tripsit.me/file/pic/user/758.jpg", 1600, 1200);
+  Photo img5 = new Photo("Image 5", "http://jattyouth.com/photobyusers/data/Animals/50f583ce7c43d.jpg", 1920, 1200);
 
   List<Photo> photos = [img1, img2, img3, img4, img5];
   for (int i = 0; i < photos.length; i++) {
