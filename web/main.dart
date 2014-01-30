@@ -51,6 +51,7 @@ void createWindow(MouseEvent e) {
 
 _showImageViewer(List<Image> images, position) {
   ImageViewerComponent iv = new ImageViewerComponent(images, position, 1024, 800);
+
   document.body.append(iv);
 }
 

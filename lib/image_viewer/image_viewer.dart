@@ -1,6 +1,7 @@
 library image_viewer;
 
 import 'dart:html';
+import 'dart:async';
 import 'package:polymer/polymer.dart';
 
 part 'image.dart';
@@ -10,6 +11,7 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
   @published List<Image> images;
   @published int position, maxWidth, maxHeight;
   ImageElement _imageElement;
+  StreamSubscription<KeyboardEvent> _keyDownSubscription;
 
   factory ImageViewerComponent(List<Image> images, int position, int maxWidth, int maxHeight) {
     ImageViewerComponent iv = new Element.tag('div', 'x-image-viewer');
@@ -17,26 +19,34 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
     iv.position = position;
     iv.maxWidth = maxWidth;
     iv.maxHeight = maxHeight;
-    onKeyPress.listen((key) {
-      if (key.keyCode == KeyCode.LEFT) {
-        iv.previous();
-      } else if (key.keyCode == KeyCode.RIGHT) {
-        iv.next();
-      } else if (key.keyCode == KeyCode.SPACE) {
-        iv.fullscreen();
-      } else if (key.keyCode == KeyCode.ESC) {
-        iv.remove();
-      }
-    });
     return iv;
   }
 
   ImageViewerComponent.created() : super.created();
 
+  @override
   ready() {
     super.ready();
     _imageElement = shadowRoot.querySelector('.image');
     _calculateImageSize();
+    _keyDownSubscription = document.onKeyDown.listen((key) {
+      //print('${key.keyCode.toString()} ${key.which.toString()}');
+      if (key.keyCode == KeyCode.LEFT) {
+        previous();
+      } else if (key.keyCode == KeyCode.RIGHT) {
+        next();
+      } else if (key.keyCode == KeyCode.SPACE) {
+        fullscreen();
+      } else if (key.keyCode == KeyCode.ESC) {
+        remove();
+      }
+    });
+  }
+
+  @override
+  leftView() {
+    super.leftView();
+    _keyDownSubscription.cancel();
   }
 
   previousClick(MouseEvent e, var detail, Node target) {
@@ -69,6 +79,7 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
   }
 
   fullscreen() {
+    requestFullscreen();
   }
 
   _calculateImageSize() {
@@ -78,7 +89,7 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
     // calculated.
     double widthPercentage = images[position].width / maxWidth;
     double heightPercentage = images[position].height / maxHeight;
-    print('$widthPercentage $heightPercentage');
+    //print('$widthPercentage $heightPercentage');
     if (widthPercentage > heightPercentage) {
       if (widthPercentage > 1.0) {
         images[position].width = (images[position].width / widthPercentage).round();
