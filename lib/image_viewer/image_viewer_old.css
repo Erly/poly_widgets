@@ -14,8 +14,33 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .button-panel {
-  vertical-panel: bottom;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+button {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  border: 0px solid black;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  background-color: rgba(15, 15, 15, 0.55);
+  color: dark-grey;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(5, 5, 5, 0.6);
+}
+
+button:focus {
+  outline: 0;
 }

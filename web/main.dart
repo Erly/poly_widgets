@@ -49,13 +49,13 @@ void createWindow(MouseEvent e) {
   document.body.append(w);
 }
 
-_showImageViewer(List<Image> images, position) {
-  ImageViewerComponent iv = new ImageViewerComponent(images, position, 1024, 800);
+_showImageViewer(List<Viewable> images, position) {
+  ImageViewerComponent iv = new ImageViewerComponent(images, position, 1024, 800, loop: true);
 
   document.body.append(iv);
 }
 
-class Photo implements Image {
+class Photo implements Viewable {
   String name, src;
   int width, height;
 

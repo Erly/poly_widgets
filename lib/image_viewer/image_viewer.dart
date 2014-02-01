@@ -4,21 +4,24 @@ import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 
-part 'image.dart';
+part 'viewable.dart';
 
 @CustomTag('x-image-viewer')
 class ImageViewerComponent extends DivElement with Polymer, Observable {
-  @published List<Image> images;
+  @published List<Viewable> images;
   @published int position, maxWidth, maxHeight;
+  @published bool loop = false;
   ImageElement _imageElement;
   StreamSubscription<KeyboardEvent> _keyDownSubscription;
+  StreamSubscription<Event> _fullscreenSubscription;
 
-  factory ImageViewerComponent(List<Image> images, int position, int maxWidth, int maxHeight) {
+  factory ImageViewerComponent(List<Viewable> images, int position, int maxWidth, int maxHeight, {bool loop: false}) {
     ImageViewerComponent iv = new Element.tag('div', 'x-image-viewer');
     iv.images = images;
     iv.position = position;
     iv.maxWidth = maxWidth;
     iv.maxHeight = maxHeight;
+    iv.loop = loop;
     return iv;
   }
 
@@ -41,12 +44,14 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
         remove();
       }
     });
+    _fullscreenSubscription = document.onFullscreenChange.listen((e) => _calculateImageSize());
   }
 
   @override
   leftView() {
     super.leftView();
     _keyDownSubscription.cancel();
+    _fullscreenSubscription.cancel();
   }
 
   previousClick(MouseEvent e, var detail, Node target) {
@@ -65,17 +70,15 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
   }
 
   previous() {
-    if (position > 0) {
-      position--;
-      _calculateImageSize();
-    }
+    if (position > 0) position--;
+    else if (loop) position = images.length - 1;
+    _calculateImageSize();
   }
 
   next() {
-    if (position < images.length - 1) {
-      position++;
-      _calculateImageSize();
-    }
+    if (position < images.length - 1) position++;
+    else if (loop) position = 0;
+    _calculateImageSize();
   }
 
   fullscreen() {
@@ -87,24 +90,32 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
     // update automatically the style. But if maxWidth or maxHeight change or
     // another image is inserted in the list the new width and margin wouldn't be
     // calculated.
-    double widthPercentage = images[position].width / maxWidth;
-    double heightPercentage = images[position].height / maxHeight;
+    int _width = images[position].width, _height = images[position].height;
+    double widthPercentage;
+    double heightPercentage;
+    if (document.fullscreenElement == null) {
+      widthPercentage = _width / maxWidth;
+      heightPercentage = _height / maxHeight;
+    } else {
+      widthPercentage = _width / (window.outerWidth * 0.9);
+      heightPercentage = _height / (window.outerHeight * 0.9);
+    }
     //print('$widthPercentage $heightPercentage');
     if (widthPercentage > heightPercentage) {
       if (widthPercentage > 1.0) {
-        images[position].width = (images[position].width / widthPercentage).round();
-        images[position].height = (images[position].height / widthPercentage).round();
+        _width = (_width / widthPercentage).round();
+        _height = (_height / widthPercentage).round();
       }
     } else {
       if (heightPercentage > 1.0) {
-        images[position].width = (images[position].width / heightPercentage).round();
-        images[position].height = (images[position].height / heightPercentage).round();
+        _width = (_width / heightPercentage).round();
+        _height = (_height / heightPercentage).round();
       }
     }
-    _imageElement.style.width = '${images[position].width}px';
-    _imageElement.style.height = '${images[position].height}px';
-    _imageElement.style.marginLeft = '-${images[position].width / 2}px';
-    _imageElement.style.marginTop = '-${images[position].height / 2}px';
+    _imageElement.style.width = '${_width}px';
+    _imageElement.style.height = '${_height}px';
+    _imageElement.style.marginLeft = '-${_width / 2}px';
+    _imageElement.style.marginTop = '-${_height / 2}px';
   }
 
 }

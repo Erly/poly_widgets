@@ -8,7 +8,36 @@
 }
 
 :host(.image:host) {
-  display: table;
-  margin: 0 auto;
-  vertical-align: middle;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+:host(.button-panel:host) {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+:host(button:host) {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  border: 0px solid black;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  background-color: rgba(15, 15, 15, 0.55);
+  color: dark-grey;
+  cursor: pointer;
+}
+
+:host(button:hover:host) {
+  background-color: rgba(5, 5, 5, 0.6);
+}
+
+:host(button:focus:host) {
+  outline: 0;
 }
