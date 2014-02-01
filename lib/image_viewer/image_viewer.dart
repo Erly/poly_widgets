@@ -2,9 +2,8 @@ library image_viewer;
 
 import 'dart:html';
 import 'dart:async';
+import 'viewable.dart';
 import 'package:polymer/polymer.dart';
-
-part 'viewable.dart';
 
 @CustomTag('x-image-viewer')
 class ImageViewerComponent extends DivElement with Polymer, Observable {

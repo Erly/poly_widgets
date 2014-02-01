@@ -3,6 +3,7 @@ library main;
 import 'dart:html';
 import '../lib/icon/icon.dart';
 import '../lib/image_viewer/image_viewer.dart';
+import '../lib/image_viewer/viewable.dart';
 import '../lib/window/window.dart';
 import 'package:polymer/polymer.dart';
 

@@ -1,4 +1,4 @@
-part of image_viewer;
+library image_viewer_model;
 
 class Viewable {
   String name, src;
