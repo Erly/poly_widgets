@@ -1,13 +1,28 @@
 name: poly_widgets
-version: 0.2.6+1
+version: 0.3.0-rc
 author: Erlantz Oniga
 description: A sample web application
-environment:
-  sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  browser: any
-  logging: any
-  polymer: '>0.9.3'
+  browser: ^0.10.0
+  logging: ^0.11.0
+  polymer: ^1.0.0-rc.7
+  web_components: ^0.12.0
+  reflectable: ^0.3.0
+transformers:
+- web_components:
+    entry_points:
+      - web/test.html
+- reflectable:
+    entry_points:
+      - web/main.dart
+- test/pub_serve:
+    $include: test/**_test{.*,}.dart
+- $dart2js:
+    minify: true
+    commandLineOptions:
+    - --trust-type-annotations
+    - --trust-primitives
 dev_dependencies:
-  polymer_elements: any
-  polymer_ui_elements: any
+  test: ^0.12.0
+environment:
+  sdk: '>=1.8.0 <2.0.0'

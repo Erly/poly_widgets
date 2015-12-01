@@ -1,13 +1,13 @@
-<polymer-element name="x-image-viewer" extends="div" attributes="images position maxWidth maxHeight loop">
+<dom-module name="x-image-viewer">
+  <link rel="import" type="css" href="image_viewer.css">
   <template>
-    <link rel="stylesheet" href="image_viewer.css">
-    <link rel="stylesheet" href="image_viewer_old.css"><!-- TODO remove -->
+    <array-selector id="selector" items="{{images}}" selected="{{selected}}" toggle></array-selector>
 
-    <img alt="{{images[position].name}}" src={{images[position].src}} class="image" />
+    <img alt="{{selected.name}}" src$='{{selected.src}}' class="image" />
     <div id="button-panel" class="button-panel">
-      <button id="previous" on-click={{previousClick}}>&lt;&lt;</button>
-      <button id="next" on-click={{nextClick}}>&gt;&gt;</button>
+      <button id="previous" on-click=previousClick>&lt;&lt;</button>
+      <label>{{selected.name}}</label>
+      <button id="next" on-click=nextClick>&gt;&gt;</button>
     </div>
   </template>
-  <script type="application/dart" src="image_viewer.dart"></script>
-</polymer-element>
+</dom-module>

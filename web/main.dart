@@ -1,16 +1,16 @@
 library main;
 
 import 'dart:html';
-import '../lib/icon/icon.dart';
-import '../lib/image_viewer/image_viewer.dart';
-import '../lib/image_viewer/viewable.dart';
-import '../lib/window/window.dart';
-import 'package:polymer/polymer.dart';
+import 'packages/poly_widgets/window/window.dart';
+import 'packages/poly_widgets/icon/icon.dart';
+import 'packages/poly_widgets/image_viewer/image_viewer.dart';
+import 'packages/poly_widgets/image_viewer/viewable.dart';
 
 export 'package:polymer/init.dart';
+import 'package:polymer/polymer.dart';
 
-@initMethod
-void _init() {
+main() async {
+  await initPolymer();
   ButtonElement createWindowButton = querySelector("#create-window-button");
   createWindowButton.onClick.listen(createWindow);
 }
@@ -18,6 +18,7 @@ void _init() {
 void createWindow(MouseEvent e) {
   WindowComponent w = new WindowComponent("Window", 100, 100, 640, 480, minWidth: 320, minHeight: 240);
   w.onClose.listen((_) => w.remove());
+  PolymerDom windowDom = Polymer.dom(w);
 
   for (int i = 0; i < 10; i++) {
     IconComponent icon = new IconComponent("Prueba $i", "http://www.erlantzoniga.com/images/folder.png", 100, 100)
@@ -27,11 +28,11 @@ void createWindow(MouseEvent e) {
           e.preventDefault();
           window.alert("You right clicked the icon Prueba $i");
       });
-    w.append(icon);
+    windowDom.append(icon);
   }
   IconComponent icon = new IconComponent("This icon clears the window and has a reaaaaly long text",
           "http://www.erlantzoniga.com/images/folder.png", 100, 100)
-    ..onDoubleClick.listen((e) => w.children.clear());
+    ..onDoubleClick.listen((e) => windowDom.innerHtml = ""); //TODO: windowDom.children.clear() for some reason doesn't work
 
   Photo img1 = new Photo("Image 1", "http://cdn.theatlantic.com/static/infocus/ngpc112812/s_n01_nursingm.jpg", 991, 678);
   Photo img2 = new Photo("Image 2", "http://images5.fanpop.com/image/photos/31400000/Animals-animals-31477008-1280-1024.jpg", 1280, 1024);
@@ -43,10 +44,10 @@ void createWindow(MouseEvent e) {
   for (int i = 0; i < photos.length; i++) {
     IconComponent icon = new IconComponent(photos[i].name, photos[i].src, 100, 100)
       ..onDoubleClick.listen((e) => _showImageViewer(photos, i));
-    w.append(icon);
+    windowDom.append(icon);
   }
 
-  w.append(icon);
+  windowDom.append(icon);
   document.body.append(w);
 }
 
@@ -56,9 +57,11 @@ _showImageViewer(List<Viewable> images, position) {
   document.body.append(iv);
 }
 
-class Photo implements Viewable {
-  String name, src;
-  int width, height;
-
-  Photo(this.name, this.src, this.width, this.height);
+class Photo extends Viewable {
+  Photo(String name, String src, int width, int height) {
+    this.name = name;
+    this.src = src;
+    this.width = width;
+    this.height = height;
+  }
 }

@@ -9,7 +9,7 @@
   z-index: 99999;
 }
 
-:host(.image:host) {
+:host .image {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,14 +17,14 @@
   max-height: 90%;
 }
 
-:host(.button-panel:host) {
+:host .button-panel {
   position: absolute;
   bottom: 30px;
   width: 100%;
   text-align: center;
 }
 
-:host(button:host) {
+:host button {
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 28px;
@@ -36,10 +36,10 @@
   cursor: pointer;
 }
 
-:host(button:hover:host) {
+:host button:hover {
   background-color: rgba(5, 5, 5, 0.6);
 }
 
-:host(button:focus:host) {
+:host button:focus {
   outline: 0;
 }

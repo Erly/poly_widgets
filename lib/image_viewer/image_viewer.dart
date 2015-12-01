@@ -1,32 +1,53 @@
+@HtmlImport('image_viewer.html')
 library image_viewer;
 
 import 'dart:html';
 import 'dart:async';
 import 'viewable.dart';
 import 'package:polymer/polymer.dart';
+import 'package:web_components/web_components.dart';
 
-@CustomTag('x-image-viewer')
-class ImageViewerComponent extends DivElement with Polymer, Observable {
-  @published List<Viewable> images;
-  @published int position, maxWidth, maxHeight;
-  @published bool loop = false;
+@PolymerRegister('x-image-viewer', extendsTag: 'div')
+class ImageViewerComponent extends DivElement with PolymerMixin, PolymerBase, JsProxy {
+  @Property(reflectToAttribute: true) List<Viewable> images;
+  @property int position;
+  @Property(reflectToAttribute: true) int maxWidth;
+  @Property(reflectToAttribute: true) int maxHeight;
+  @Property(reflectToAttribute: true) bool loop = false;
   ImageElement _imageElement;
   StreamSubscription<KeyboardEvent> _keyDownSubscription;
   StreamSubscription<Event> _fullscreenSubscription;
 
   factory ImageViewerComponent(List<Viewable> images, int position, int maxWidth, int maxHeight, {bool loop: false}) {
     ImageViewerComponent iv = new Element.tag('div', 'x-image-viewer');
-    iv.images = images;
-    iv.position = position;
-    iv.maxWidth = maxWidth;
-    iv.maxHeight = maxHeight;
-    iv.loop = loop;
+    iv.set('images', images);
+    iv.set('position', position);
+    iv.set('maxWidth', maxWidth);
+    iv.set('maxHeight', maxHeight);
+    iv.set('loop', loop);
     return iv;
   }
 
-  ImageViewerComponent.created() : super.created();
+  ImageViewerComponent.created() : super.created() {
+    polymerCreated();
+    _imageElement = $$('.image');
+    //_calculateImageSize();
+    _keyDownSubscription = document.onKeyDown.listen((key) {
+      //print('${key.keyCode.toString()} ${key.which.toString()}');
+      if (key.keyCode == KeyCode.LEFT) {
+        previous();
+      } else if (key.keyCode == KeyCode.RIGHT) {
+        next();
+      } else if (key.keyCode == KeyCode.SPACE) {
+        fullscreen();
+      } else if (key.keyCode == KeyCode.ESC) {
+        remove();
+      }
+    });
+    _fullscreenSubscription = document.onFullscreenChange.listen((e) => _calculateImageSize());
+  }
 
-  @override
+  /*@override
   ready() {
     super.ready();
     _imageElement = shadowRoot.querySelector('.image');
@@ -44,11 +65,17 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
       }
     });
     _fullscreenSubscription = document.onFullscreenChange.listen((e) => _calculateImageSize());
+  }*/
+
+  @override
+  attached() {
+    super.attached();
+    _calculateImageSize();
   }
 
   @override
-  leftView() {
-    super.leftView();
+  detached() {
+    super.detached();
     _keyDownSubscription.cancel();
     _fullscreenSubscription.cancel();
   }
@@ -85,6 +112,7 @@ class ImageViewerComponent extends DivElement with Polymer, Observable {
   }
 
   _calculateImageSize() {
+    $$('#selector').select(images[position]);
     // This could be calculated just once in the constructor and use polymer to
     // update automatically the style. But if maxWidth or maxHeight change or
     // another image is inserted in the list the new width and margin wouldn't be

@@ -1,16 +1,25 @@
+@HtmlImport('window.html')
 library window;
 
 import 'dart:async';
 import 'dart:html';
 import 'dart:math';
 import 'package:polymer/polymer.dart';
+import 'package:web_components/web_components.dart';
 
-@CustomTag('x-window')
-class WindowComponent extends DivElement with Polymer, Observable {
+@PolymerRegister('x-window', extendsTag: 'div')
+class WindowComponent extends DivElement with PolymerMixin, PolymerBase, JsProxy {
 
-  @published String title = 'Window';
-  @published bool modal = false, movable = true, resizable = true;
-  @published int minTop = 0, minLeft = 0, minBottom = 0, minRight = 0, minWidth = 150, minHeight = 100;
+  @property String windowTitle = 'Window';
+  @property bool modal = false;
+  @property bool movable = true;
+  @property bool resizable = true;
+  @property int minTop = 0;
+  @property int minLeft = 0;
+  @property int minBottom = 0;
+  @property int minRight = 0;
+  @property int minWidth = 150;
+  @property int minHeight = 100;
 
   Point _dragStartPoint, _windowReferencePoint;
   int _windowInitialWidth, _windowInitialHeight;
@@ -31,27 +40,30 @@ class WindowComponent extends DivElement with Polymer, Observable {
   }) {
     WindowComponent w = new Element.tag('div', 'x-window');
     w.style.position = 'absolute';
-    w.title = title;
+    w.set('windowTitle', title);
     w.style.top = '${top}px';
     w.style.left = '${left}px';
     w.style.width = '${width}px';
     w.style.height = '${height}px';
-    w.minTop = minTop;
-    w.minLeft = minLeft;
-    w.minBottom = minBottom;
-    w.minRight = minRight;
-    w.minWidth = minWidth;
-    w.minHeight = minHeight;
+    w.set('minTop', minTop);
+    w.set('minLeft', minLeft);
+    w.set('minBottom', minBottom);
+    w.set('minRight', minRight);
+    w.set('minWidth', minWidth);
+    w.set('minHeight', minHeight);
     w.style.zIndex = '$zIndex';
-    w.modal = modal;
-    w.movable = movable;
-    w.resizable = resizable;
+    w.set('modal', modal);
+    w.set('movable', movable);
+    w.set('resizable', resizable);
     return w;
   }
 
-  WindowComponent.created() : super.created();
+  WindowComponent.created() : super.created() {
+    polymerCreated();
+  }
 
-  windowDragStart(MouseEvent e, var detail, Node target) {
+  @reflectable
+  windowDragStart(MouseEvent e, var detail) {
     _dragStartPoint = e.page;
     _windowReferencePoint = new Point(offsetLeft, offsetTop);
     e.dataTransfer.effectAllowed = "none";
@@ -59,7 +71,8 @@ class WindowComponent extends DivElement with Polymer, Observable {
     e.dataTransfer.dropEffect = "none";
   }
 
-  windowDrag(MouseEvent e, var detail, Node target) {
+  @reflectable
+  windowDrag(MouseEvent e, var detail) {
     if (movable) {
       Point newWindowPosition = _windowReferencePoint + (e.page - _dragStartPoint);
 
@@ -72,7 +85,8 @@ class WindowComponent extends DivElement with Polymer, Observable {
     }
   }
 
-  resizeDragStart(MouseEvent e, var detail, Node target) {
+  @reflectable
+  resizeDragStart(MouseEvent e, var detail) {
     _dragStartPoint = e.page;
     _windowReferencePoint = new Point(offsetLeft + offsetWidth, offsetTop + offsetHeight);
     _windowInitialWidth = offsetWidth;
@@ -82,7 +96,8 @@ class WindowComponent extends DivElement with Polymer, Observable {
     e.dataTransfer.dropEffect = "none";
   }
 
-  resizeDrag(MouseEvent e, var detail, Node target) {
+  @reflectable
+  resizeDrag(MouseEvent e, var detail) {
     if (resizable) {
       Point movedPosition = e.page - _dragStartPoint;
       Point newReferencePoint = _windowReferencePoint + movedPosition;
@@ -96,15 +111,18 @@ class WindowComponent extends DivElement with Polymer, Observable {
     }
   }
 
-  minimize() {
+  @reflectable
+  minimize([_, __]) {
     _onMinimize.add(new CustomEvent('minimize'));
   }
 
-  maximize() {
+  @reflectable
+  maximize([_, __]) {
     _onMaximize.add(new CustomEvent('maximize'));
   }
 
-  close() {
+  @reflectable
+  close([_, __]) {
     _onClose.add(new CustomEvent('close'));
   }
 }
